@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AndroidVNC</title>
+</head>
+<body>
+    <button onclick="startEmulator()">Start Emulator</button>
+    <iframe id="emulatorFrame" width="800" height="600" style="display:none;"></iframe>
+
+    <script>
+        function startEmulator() {
+            fetch('http://localhost:3000/status')
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    document.getElementById('emulatorFrame').src = 'http://localhost:6901';
+                    document.getElementById('emulatorFrame').style.display = 'block';
+                })
+                .catch(error => alert('error connecting to emulator'));
+        }
+    </script>
+</body>
+</html>
