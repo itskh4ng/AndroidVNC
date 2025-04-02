@@ -1,16 +1,10 @@
-const express = require('express')
-const app = express()
-const port = 3000
+const express = require('express');
+const app = express();
+const port = 3000;
 
-// serve static files from the frontend
-app.use(express.static('public'))
+// serve static files from frontend
+app.use(express.static('frontend'));
 
-// endpoint to start genymotion device
-app.post('/start', (req, res) => {
-  res.send('started genymotion device')
-})
-
-// start the server
 app.listen(port, () => {
-  console.log(`server running at http://localhost:${port}`)
-})
+  console.log(`Server is running at http://localhost:${port}`);
+});
