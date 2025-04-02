@@ -11,12 +11,13 @@ RUN apt-get update && apt-get install -y \
     libx11-dev \
     xvfb \
     x11vnc \
-    supervisor
+    supervisor \
+    && rm -rf /var/lib/apt/lists/*
 
-# download and install genymotion
+# download and install genymotion (automatically accept installation)
 RUN wget https://dl.genymotion.com/releases/genymotion-3.8.0/genymotion-3.8.0-linux_x64.bin -O genymotion-installer.bin && \
     chmod +x genymotion-installer.bin && \
-    ./genymotion-installer.bin && \
+    echo "y" | ./genymotion-installer.bin && \
     rm genymotion-installer.bin
 
 # install kasmvnc
