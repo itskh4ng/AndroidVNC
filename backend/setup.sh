@@ -1,8 +1,15 @@
 #!/bin/bash
 
-# start genymotion virtual device
-./genymotion genymotion-shell --list
-./genymotion genymotion-shell --start "YourVirtualDeviceName"
+# start genymotion emulator with device name "localdroid"
+cd /workspaces/AndroidVNC/genymotion
+./genymotion genymotion-shell --start "localdroid" &
 
-# start vnc server
-x11vnc -display :0 -nopw -forever
+# start x11vnc for VNC server
+x11vnc -display :0 -nopw -forever &
+
+# start noVNC to make the VNC accessible through browser
+websockify -D --web /usr/share/novnc 6901 localhost:5900 &
+
+# start backend server
+cd /workspaces/AndroidVNC/backend
+node server.js &
