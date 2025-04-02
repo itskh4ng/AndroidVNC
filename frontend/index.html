@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>genymotion emulator</title>
+    <script src="https://unpkg.com/novnc/core/rfb.js"></script>
+</head>
+<body>
+    <h1>genymotion emulator</h1>
+    <div id="vnc-container"></div>
+    
+    <script>
+      var rfb = new RFB(document.getElementById('vnc-container'), 'ws://localhost:6901')
+    </script>
+</body>
+</html>
