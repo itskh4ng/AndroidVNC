@@ -1,23 +1,16 @@
 {
-  "name": "AndroidVNC Dev Container",
-  "build": {
-    "dockerfile": "Dockerfile"
+  "name": "android emulator with genymotion",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-nodejs.vscode-node-azure-pack"
+      ]
+    }
   },
+  "postCreateCommand": "npm install && bash ./backend/setup.sh",
   "runArgs": [
     "--cap-add=SYS_ADMIN",
-    "--device=/dev/kvm"
-  ],
-  "postCreateCommand": "./.devcontainer/setup.sh",
-  "portsAttributes": {
-    "3000": {
-      "label": "Backend Server",
-      "onAutoForward": "openBrowser"
-    },
-    "8080": {
-      "label": "Frontend Server"
-    },
-    "6901": {
-      "label": "Android Emulator VNC"
-    }
-  }
+    "--device=/dev/fuse"
+  ]
 }
