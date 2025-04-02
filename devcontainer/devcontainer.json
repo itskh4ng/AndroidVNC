@@ -1,10 +1,10 @@
 {
-  "name": "AndroidVNC",
+  "name": "AndroidVNC Web",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:1": {}
   },
-  "postCreateCommand": "bash /workspaces/android-emulator-web/setup.sh",
+  "postCreateCommand": "bash /workspaces/AndroidVNC/setup.sh",
   "forwardPorts": [3000, 6901],
   "remoteUser": "vscode"
 }
