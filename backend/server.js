@@ -1,16 +1,16 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
+const express = require('express')
+const app = express()
+const port = 3000
 
-// enable cors
-app.use(cors());
+// serve static files from the frontend
+app.use(express.static('public'))
 
-// route check
-app.get('/status', (req, res) => {
-    res.json({ message: 'works' });
-});
+// endpoint to start genymotion device
+app.post('/start', (req, res) => {
+  res.send('started genymotion device')
+})
 
-// start server
-app.listen(3000, () => {
-    console.log('running on port 3000');
-});
+// start the server
+app.listen(port, () => {
+  console.log(`server running at http://localhost:${port}`)
+})
