@@ -4,6 +4,7 @@
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:1": {}
   },
-  "postCreateCommand": "bash setup.sh",
-  "forwardPorts": [3000, 6901]
+  "postCreateCommand": "bash /workspaces/android-emulator-web/setup.sh",
+  "forwardPorts": [3000, 6901],
+  "remoteUser": "vscode"
 }
