@@ -1,34 +1,43 @@
-# use ubuntu as base image
+# use ubuntu as base
 FROM ubuntu:20.04
 
+# set env to avoid interactive installs
+ENV DEBIAN_FRONTEND=noninteractive
+
 # install dependencies
-RUN apt-get update -y && \
-    apt-get install -y wget curl unzip libqt5widgets5 libqt5gui5 \
-    virtualbox libqt5opengl5 x11vnc xvfb
+RUN apt-get update -y && apt-get install -y \
+    wget \
+    curl \
+    unzip \
+    openjdk-8-jdk \
+    lib32z1 \
+    lib32ncurses6 \
+    lib32stdc++6 \
+    libx11-dev \
+    libxrandr-dev \
+    xvfb \
+    x11vnc \
+    supervisor \
+    gnupg \
+    bash
 
-# install genymotion
-RUN wget https://dl.genymotion.com/releases/genymotion-3.8.0/genymotion-3.8.0-linux_x64.bin && \
-    chmod +x genymotion-3.8.0-linux_x64.bin && \
-    ./genymotion-3.8.0-linux_x64.bin
+# download and install genymotion
+RUN wget https://dl.genymotion.com/releases/genymotion-3.8.0/genymotion-3.8.0-linux_x64.bin -O genymotion-installer.bin && \
+    chmod +x genymotion-installer.bin && \
+    ./genymotion-installer.bin && \
+    rm genymotion-installer.bin
 
-# install nodejs and npm for the server
-RUN apt-get install -y nodejs npm
+# install kasmvnc dependencies
+RUN curl -sSL https://kasmweb.com/apt/kasmweb.gpg | tee /etc/apt/trusted.gpg.d/kasmweb.asc
+RUN echo "deb https://kasmweb.com/apt/ stable main" | tee -a /etc/apt/sources.list.d/kasmweb.list
+RUN apt-get update -y && apt-get install -y kasmvnc
 
-# expose vnc and server ports
-EXPOSE 6901
-EXPOSE 3000
+# set default display for xvfb
+ENV DISPLAY=:0
 
-# copy server files to container
-COPY ./backend /app
+# copy scripts to start genymotion and kasmvnc
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
-# set working directory
-WORKDIR /app
-
-# install server dependencies
-RUN npm install
-
-# make setup script executable
-RUN chmod +x /app/setup.sh
-
-# run server and genymotion
-CMD ["bash", "-c", "nohup ./setup.sh & node server.js & tail -f /dev/null"]
+# start kasmvnc and genymotion
+CMD ["/run.sh"]
