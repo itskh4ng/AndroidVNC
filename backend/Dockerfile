@@ -14,11 +14,13 @@ RUN apt-get update && apt-get install -y \
     supervisor \
     && rm -rf /var/lib/apt/lists/*
 
-# download and install genymotion (automatically accept installation)
-RUN wget https://dl.genymotion.com/releases/genymotion-3.8.0/genymotion-3.8.0-linux_x64.bin -O genymotion-installer.bin && \
-    chmod +x genymotion-installer.bin && \
-    echo "y" | ./genymotion-installer.bin && \
-    rm genymotion-installer.bin
+# download genymotion installer quietly
+RUN wget --quiet https://dl.genymotion.com/releases/genymotion-3.8.0/genymotion-3.8.0-linux_x64.bin -O /tmp/genymotion-installer.bin
+
+# install genymotion
+RUN chmod +x /tmp/genymotion-installer.bin && \
+    /tmp/genymotion-installer.bin -y -a /opt/genymobile/genymotion && \
+    rm /tmp/genymotion-installer.bin
 
 # install kasmvnc
 RUN curl -sSL https://kasmweb.com/apt/kasmweb.gpg | tee /etc/apt/trusted.gpg.d/kasmweb.asc
