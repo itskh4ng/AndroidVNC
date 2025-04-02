@@ -1,10 +1,23 @@
 {
-  "name": "AndroidVNC Web",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:1": {}
+  "name": "AndroidVNC Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
   },
-  "postCreateCommand": "bash /workspaces/AndroidVNC/setup.sh",
-  "forwardPorts": [3000, 6901],
-  "remoteUser": "vscode"
+  "runArgs": [
+    "--cap-add=SYS_ADMIN",
+    "--device=/dev/kvm"
+  ],
+  "postCreateCommand": "./.devcontainer/setup.sh",
+  "portsAttributes": {
+    "3000": {
+      "label": "Backend Server",
+      "onAutoForward": "openBrowser"
+    },
+    "8080": {
+      "label": "Frontend Server"
+    },
+    "6901": {
+      "label": "Android Emulator VNC"
+    }
+  }
 }
