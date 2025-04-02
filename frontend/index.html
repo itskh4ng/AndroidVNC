@@ -4,23 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Android Emulator</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100%;
-    }
-    #noVNC-container {
-      width: 100%;
-      height: 100%;
-    }
-  </style>
 </head>
 <body>
-  <div id="noVNC-container">
-    <script src="https://cdn.jsdelivr.net/npm/novnc@1.0.0-rc.5/core/noVNC.js"></script>
-    <script>
-      var rfb = new RFB(document.getElementById('noVNC-container'), 'ws://localhost:6901');
-    </script>
-  </div>
+  <h1>genymotion android emulator</h1>
+  <iframe src="http://localhost:6901" width="100%" height="600px"></iframe>
 </body>
 </html>
